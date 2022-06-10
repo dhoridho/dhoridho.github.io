@@ -1,0 +1,137 @@
+
+
+ .form-container {
+  padding: 16px 16px 0 16px;
+  background-color: white;
+  margin:100px 300px 0px 300px;
+  
+}
+
+.form-container h1,p{
+  text-align: center;;
+}
+
+.form-container h1{
+  font-size: 40px;
+  margin: auto;
+}
+
+header {
+  position :relative;
+}
+
+input[type=text], input[type=password], input[type=date] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+input[type=radio]{
+  width: 5%;
+  padding: 15px;
+  /* margin: 5px 0 22px 0; */
+  /* display: block; */
+  /* position: relative; */
+}
+
+.radio-content {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.radio-content input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.radio-content:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.radio-content input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+
+.radio-content input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-content .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.registerbtn {
+  background-color: var(--lightPurple);
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  /* background-color: #f1f1f1; */
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 60px;
+  padding-top: 0;
+}
