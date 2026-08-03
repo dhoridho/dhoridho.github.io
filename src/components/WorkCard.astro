@@ -18,7 +18,7 @@ const { title, summary, year, stack, visibility } = entry.data;
   </div>
 
   <h3 class="card__title">
-    <a href={`/work/${entry.id}/`}>{title}</a>
+    <button type="button" data-open={`d-${entry.id}`}>{title}</button>
   </h3>
 
   <p class="card__summary">{summary}</p>
@@ -80,8 +80,18 @@ const { title, summary, year, stack, visibility } = entry.data;
     color: inherit;
     text-decoration: none;
   }
-  /* The link covers the whole card, so anywhere on it is clickable. */
-  .card__title a::after {
+  .card__title button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  /* The trigger covers the whole card, so anywhere on it opens the panel. */
+  .card__title button::after {
     content: '';
     position: absolute;
     inset: 0;

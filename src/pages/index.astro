@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Sidebar from '../components/Sidebar.astro';
 import Section from '../components/Section.astro';
 import WorkCard from '../components/WorkCard.astro';
+import WorkDialog from '../components/WorkDialog.astro';
 import Badge from '../components/Badge.astro';
 import Graph from '../components/Graph.astro';
 
@@ -75,6 +76,8 @@ const roles = [
         <div class="cards">
           {work.map((entry) => <WorkCard entry={entry} />)}
         </div>
+
+        {work.map((entry) => <WorkDialog entry={entry} />)}
       </Section>
 
       <Section id="stack" title="Stack">
@@ -196,6 +199,23 @@ const roles = [
     </main>
   </div>
 </Layout>
+
+<script>
+  // Native dialog: Escape closes it, focus is trapped, the backdrop is free.
+  for (const trigger of document.querySelectorAll<HTMLElement>('[data-open]')) {
+    trigger.addEventListener('click', () => {
+      const panel = document.getElementById(trigger.dataset.open!) as HTMLDialogElement | null;
+      panel?.showModal();
+    });
+  }
+
+  // Clicking the backdrop closes, which is what everyone expects and dialog does not do.
+  for (const panel of document.querySelectorAll<HTMLDialogElement>('dialog')) {
+    panel.addEventListener('click', (event) => {
+      if (event.target === panel) panel.close();
+    });
+  }
+</script>
 
 <style>
   .shell {
