@@ -1,0 +1,463 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Section from '../components/Section.astro';
+import WorkCard from '../components/WorkCard.astro';
+import Badge from '../components/Badge.astro';
+import Graph from '../components/Graph.astro';
+
+// Public work first, then builds, then improvements. Weight orders within each group.
+const rank = (entry: { data: { visibility: string; kind: string } }) =>
+  entry.data.visibility === 'public' ? 0 : entry.data.kind === 'build' ? 1 : 2;
+
+const work = (await getCollection('work')).sort(
+  (a, b) => rank(a) - rank(b) || b.data.weight - a.data.weight
+);
+
+const tools = ['Obsidian', 'Claude Code', 'Markdown', 'Git'];
+
+const stack = [
+  { label: 'Write', items: ['Python', 'SQL', 'Odoo', 'Django'] },
+  { label: 'Store', items: ['PostgreSQL', 'Redis', 'PgBouncer', 'Patroni'] },
+  { label: 'Run', items: ['Docker', 'Docker Swarm', 'Ansible', 'Traefik', 'Linux'] },
+  { label: 'Watch', items: ['Prometheus', 'Grafana', 'Loki', 'Alertmanager'] },
+];
+
+const roles = [
+  {
+    company: 'Akasha Wira International',
+    title: 'Software Engineer, Backend',
+    period: '2025 to now',
+    lines: [
+      'Own the production repositories behind the distribution network: the central Odoo ERP, the systems distributors run on, branch and manufacturing.',
+      'Built the Django middleware that keeps those databases in sync, and the ERP-side integrations to the sales force application and Dynamics AX.',
+      'Cut database CPU by around 80% at peak by caching Odoo read paths in Redis and rebuilding the indexes behind the slowest queries.',
+    ],
+  },
+  {
+    company: 'HashMicro',
+    title: 'Freelance Developer, then Internship',
+    period: '2024 to 2026',
+    lines: [
+      'Built customisations across sales, CRM, inventory, purchasing and accounting in Python and PostgreSQL.',
+      'Spent much of it in legacy code, clearing database locks and query bottlenecks other people had hit.',
+    ],
+  },
+];
+---
+
+<Layout
+  title="Ridho Kurnia Putra, Backend Engineer"
+  description="Backend engineer working on Odoo ERP platforms, PostgreSQL, and the infrastructure that keeps a distribution network of more than a hundred instances running."
+>
+  <div class="shell">
+    <Sidebar />
+
+    <main class="content">
+      <Section id="now" title="Now">
+        <div class="prose">
+          <p>
+            I work on Odoo ERP backends and the PostgreSQL infrastructure underneath them.
+            Custom modules for order-to-cash, procure-to-pay and manufacturing, the middleware
+            that keeps the ERP in sync with the systems around it, and the database and server
+            work that keeps a distribution network of more than a hundred instances serving.
+          </p>
+          <p>
+            What I keep coming back to: why a query is slow, how a cluster behaves when a
+            machine dies, and which manual server task should stop being manual. Currently
+            learning Go.
+          </p>
+        </div>
+      </Section>
+
+      <Section id="work" title="Work">
+        <div class="cards">
+          {work.map((entry) => <WorkCard entry={entry} />)}
+        </div>
+      </Section>
+
+      <Section id="stack" title="Stack">
+        <dl class="stack">
+          {
+            stack.map((group) => (
+              <div class="stack__row">
+                <dt>{group.label}</dt>
+                <dd>
+                  <ul>
+                    {group.items.map((item) => (
+                      <li>
+                        <Badge label={item} large />
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </Section>
+
+      <Section id="where" title="Where">
+        {
+          roles.map((role) => (
+            <article class="role">
+              <div class="role__head">
+                <h3>{role.company}</h3>
+                <span>{role.period}</span>
+              </div>
+              <p class="role__title">{role.title}</p>
+              <ul class="role__lines">
+                {role.lines.map((line) => (
+                  <li>{line}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </Section>
+
+      <Section id="workflow" title="Workflow">
+        <div class="prose">
+          <p>
+            Something I would like to share, since it is the part people rarely see. Across this
+            many systems the hard part stopped being the code a while ago. It is holding the
+            context: what a system does, why it was built that way, and what was already tried.
+            So I built a setup for that instead of relying on memory.
+          </p>
+        </div>
+
+        <ul class="tools">
+          {tools.map((tool) => <li><Badge label={tool} large /></li>)}
+        </ul>
+
+        <div class="framework">
+          <div class="framework__notes">
+            <div>
+              <h3>Every workstream is a folder</h3>
+              <p>
+                Five notes, always the same five, so I never have to remember where something
+                was written down.
+              </p>
+              <pre><code>{`Projects/
+└── erp-customer-staging-rework/
+    ├── erp-customer-staging-rework.md   scope, sessions, related work
+    ├── overview.md                      what it is, key files, architecture
+    ├── current-state.md                 status, what is done, what is next
+    ├── decisions.md                     each decision and why
+    └── commands.md                      commands that reproduce the work`}</code></pre>
+              <p>
+                Decisions carry their reasons, because six months later the reason is the part
+                you have lost. Commands are there so a claim can be checked rather than trusted.
+              </p>
+            </div>
+
+            <div>
+              <h3>Every repo carries its own rules</h3>
+              <pre><code>{`erp-core/
+├── CLAUDE.md          how this codebase is built, what not to do
+├── .claude/docs/      repo-side memory, close to the code
+└── graphify-out/      the codebase indexed as a knowledge graph`}</code></pre>
+              <p>
+                The rules live next to the code and are reviewed like code, so a change follows
+                the architecture already there rather than a generic best practice.
+              </p>
+            </div>
+
+            <div>
+              <h3>A session runs the same way every time</h3>
+              <ol class="steps">
+                <li>
+                  <code>/resume-workstream x</code> loads the notes, so the session starts
+                  knowing the state instead of being told it.
+                </li>
+                <li>
+                  Query the knowledge graph for the files that matter. Narrow retrieval first,
+                  never the whole repository.
+                </li>
+                <li>Do the work, in one place, with the decisions recorded as they are made.</li>
+                <li>
+                  <code>/update-workstream x</code> writes the state back, so the next session
+                  starts where this one ended.
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="framework__graph">
+            <Graph />
+            <p class="framework__caption">
+              What that habit looks like after a while. Every note is a point, every link a
+              reference between them.
+            </p>
+          </div>
+        </div>
+      </Section>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .shell {
+    padding-inline: 1.5rem;
+  }
+
+  .content {
+    padding-block: 3rem 5rem;
+  }
+
+  @media (min-width: 900px) {
+    .shell {
+      display: grid;
+      grid-template-columns: 16rem minmax(0, 1fr);
+      gap: 4.5rem;
+      padding-inline: 3.5rem;
+      max-width: 110rem;
+      margin: 0 auto;
+    }
+
+    .content {
+      padding-block: 4rem 6rem;
+      min-width: 0;
+    }
+  }
+
+  .prose p {
+    max-width: 62ch;
+    margin: 0 0 1rem;
+    line-height: 1.7;
+    color: var(--color-fg-soft);
+  }
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  .cards {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 1000px) {
+    .cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  
+  
+  
+  
+  
+  .stack {
+    margin: 0;
+  }
+
+  .stack__row {
+    display: grid;
+    grid-template-columns: 4.25rem 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .stack__row dt {
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    color: var(--color-line);
+    filter: brightness(1.9);
+  }
+
+  .stack__row dd {
+    margin: 0;
+    min-width: 0;
+  }
+
+  .stack__row ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .role {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-line);
+  }
+  .role:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .role__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .role__head h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .role__head span {
+    font-family: var(--font-ui);
+    font-size: 0.8125rem;
+    color: var(--color-fg-soft);
+  }
+
+  .role__title {
+    margin: 0.2rem 0 0.85rem;
+    font-family: var(--font-ui);
+    font-size: 0.8125rem;
+    color: var(--color-fg-soft);
+  }
+
+  .role__lines {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 62ch;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    line-height: 1.65;
+    color: var(--color-fg-soft);
+  }
+
+  .role__lines li {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .role__lines li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 0.35rem;
+    height: 1px;
+    background: var(--color-fg-soft);
+  }
+
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .framework {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 1000px) {
+    .framework {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+
+  .framework__notes {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .framework__notes pre {
+    margin: 0.75rem 0;
+    padding: 0.9rem 1rem;
+    overflow-x: auto;
+    border: 1px solid var(--color-line);
+    border-radius: 0.375rem;
+    background: var(--color-surface);
+  }
+
+  .framework__notes pre code {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--color-fg-soft);
+    white-space: pre;
+  }
+
+  .steps {
+    counter-reset: step;
+    display: grid;
+    gap: 0.7rem;
+    margin: 0.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    max-width: 58ch;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-fg-soft);
+  }
+
+  .steps li {
+    counter-increment: step;
+    position: relative;
+    padding-left: 1.75rem;
+  }
+
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    color: var(--color-fg);
+  }
+
+  .framework__caption {
+    margin: 0.75rem 0 0;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-fg-soft);
+  }
+
+  .framework__notes h3 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .framework__notes code {
+    font-size: 0.875em;
+    padding: 0.1em 0.35em;
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    background: var(--color-surface);
+  }
+
+  .framework__notes p {
+    margin: 0;
+    max-width: 58ch;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-fg-soft);
+  }
+
+  @media (max-width: 640px) {
+    .stack__row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

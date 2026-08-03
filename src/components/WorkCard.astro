@@ -1,0 +1,119 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Badge from './Badge.astro';
+
+interface Props {
+  entry: CollectionEntry<'work'>;
+  compact?: boolean;
+}
+
+const { entry, compact = false } = Astro.props;
+const { title, summary, year, stack, visibility } = entry.data;
+---
+
+<article class="card" data-compact={compact ? '' : undefined}>
+  <div class="card__meta">
+    <span>{year}</span>
+    {visibility === 'public' && <span class="card__open">public</span>}
+  </div>
+
+  <h3 class="card__title">
+    <a href={`/work/${entry.id}/`}>{title}</a>
+  </h3>
+
+  <p class="card__summary">{summary}</p>
+
+  <ul class="card__stack">
+    {stack.map((tech) => <li><Badge label={tech} /></li>)}
+  </ul>
+</article>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1.4rem 1.5rem 1.5rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease;
+  }
+
+  .card:hover {
+    background: #1b1b20;
+    border-color: #34343c;
+  }
+
+  .card__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-ui);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-fg-soft);
+  }
+
+  .card__open {
+    color: var(--color-accent);
+  }
+  .card__open::before {
+    content: '· ';
+    color: var(--color-fg-soft);
+  }
+
+  .card__title {
+    margin: 0.55rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
+  }
+
+  .card__title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  /* The link covers the whole card, so anywhere on it is clickable. */
+  .card__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+
+  .card__summary {
+    margin: 0.5rem 0 1.5rem;
+    max-width: 48ch;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-fg-soft);
+  }
+
+  /* Stack sits on the floor of the card, so cards in a row line up. */
+  .card__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin: auto 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Improvements are smaller: same shape, less air, quieter title. */
+  .card[data-compact] {
+    padding: 1.1rem 1.15rem 1.2rem;
+  }
+  .card[data-compact] .card__title {
+    font-size: 1rem;
+  }
+  .card[data-compact] .card__summary {
+    margin-bottom: 1.1rem;
+    font-size: 0.875rem;
+  }
+</style>

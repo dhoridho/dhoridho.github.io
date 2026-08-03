@@ -1,0 +1,227 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Badge from '../../components/Badge.astro';
+import { iconFor } from '../../lib/icons';
+import Chart from '../../components/Chart.astro';
+
+export async function getStaticPaths() {
+  const work = await getCollection('work');
+  return work.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { title, summary, context, year, stack, visibility, repo, chart } = entry.data;
+const { Content } = await render(entry);
+const github = iconFor('github');
+---
+
+<Layout title={`${title}, Ridho Kurnia Putra`} description={summary}>
+  <div class="page">
+    <a class="back" href="/#work">Ridho Kurnia Putra</a>
+
+    <header class="head">
+      <p class="head__meta">
+        {year}
+        <span aria-hidden="true">·</span>
+        {context}
+        {visibility === 'public' && <span class="head__open">public</span>}
+      </p>
+      <div class="head__row">
+        <h1>{title}</h1>
+        {
+          repo && (
+            <a class="repo-button" href={repo} target="_blank" rel="noopener noreferrer">
+              {github && (
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+                  <path d={github.path} />
+                </svg>
+              )}
+              Open in GitHub
+            </a>
+          )
+        }
+      </div>
+      <p class="head__summary">{summary}</p>
+    </header>
+
+    <ul class="stack">
+      {stack.map((tech) => <li><Badge label={tech} /></li>)}
+    </ul>
+
+    {chart && <Chart points={chart.points} caption={chart.caption} annotate={chart.annotate} />}
+
+    <article class="prose">
+      <Content />
+    </article>
+
+    <a class="back back--bottom" href="/#work">All work</a>
+  </div>
+</Layout>
+
+<style>
+  .page {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 6rem;
+  }
+
+  .back {
+    font-family: var(--font-ui);
+    font-size: 0.8125rem;
+    color: var(--color-fg-soft);
+    text-decoration: none;
+  }
+  .back:hover {
+    color: var(--color-fg);
+  }
+  .back::before {
+    content: '\2190 ';
+  }
+
+  .back--bottom {
+    display: block;
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .head {
+    margin-top: 3rem;
+  }
+
+  .head__meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.75rem;
+    font-family: var(--font-ui);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-fg-soft);
+  }
+
+  .head__open {
+    color: var(--color-accent);
+  }
+
+  .head h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-accent);
+  }
+
+  .head__summary {
+    margin: 0.9rem 0 0;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--color-fg-soft);
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .head__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .repo-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--color-line);
+    border-radius: 0.375rem;
+    background: var(--color-surface);
+    font-family: var(--font-ui);
+    font-size: 0.8125rem;
+    color: var(--color-fg);
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .repo-button:hover {
+    border-color: #3a3a43;
+    background: #1b1b20;
+  }
+
+  .prose {
+    margin-top: 3rem;
+  }
+
+  .prose :global(h2) {
+    margin: 2.5rem 0 0.85rem;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-fg);
+  }
+
+  .prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .prose :global(p) {
+    margin: 0 0 1.1rem;
+    line-height: 1.7;
+    color: var(--color-fg-soft);
+  }
+
+  .prose :global(ul) {
+    margin: 0 0 1.1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .prose :global(li) {
+    position: relative;
+    margin-bottom: 0.5rem;
+    padding-left: 1rem;
+    line-height: 1.65;
+    color: var(--color-fg-soft);
+  }
+
+  .prose :global(li)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.35rem;
+    height: 1px;
+    background: var(--color-fg-soft);
+  }
+
+  .prose :global(strong) {
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+
+  .prose :global(code) {
+    font-family: var(--font-ui);
+    font-size: 0.875em;
+    padding: 0.1em 0.35em;
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    background: var(--color-surface);
+  }
+</style>

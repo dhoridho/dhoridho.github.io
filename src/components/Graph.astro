@@ -1,0 +1,71 @@
+---
+import graph from '../data/graph.json';
+
+const { nodes, edges, counts } = graph;
+
+// Node size follows how many other workstreams link to it, so the shape of the
+// graph carries the information rather than labels.
+const radius = (degree: number) => 3.2 + Math.min(degree, 10) * 1.15;
+---
+
+<figure class="graph">
+  <svg viewBox="0 0 1000 1000" role="img" aria-labelledby="graph-title">
+    <title id="graph-title">
+      Graph of {counts.workstreams} workstream notes and the {counts.links} links between them
+    </title>
+
+    {
+      edges.map(([a, b]) => (
+        <line x1={nodes[a].x} y1={nodes[a].y} x2={nodes[b].x} y2={nodes[b].y} />
+      ))
+    }
+
+    {
+      nodes.map((node) => (
+        <circle cx={node.x} cy={node.y} r={radius(node.d)} data-linked={node.d > 0 ? '' : undefined} />
+      ))
+    }
+  </svg>
+
+  <figcaption>
+    {counts.workstreams} notes · {counts.links} links
+  </figcaption>
+</figure>
+
+<style>
+  .graph {
+    margin: 0;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+
+  line {
+    stroke: var(--color-fg-soft);
+    stroke-width: 0.9;
+    opacity: 0.32;
+  }
+
+  circle {
+    fill: var(--color-line);
+    filter: brightness(2.4);
+  }
+
+  /* A workstream that connects to another is brighter than one that stands alone. */
+  circle[data-linked] {
+    fill: var(--color-fg-soft);
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    font-family: var(--font-ui);
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--color-fg-soft);
+  }
+</style>

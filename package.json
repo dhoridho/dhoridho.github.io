@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "node scripts/sync-cv.mjs && astro dev",
+    "build": "node scripts/sync-cv.mjs && astro build",
+    "preview": "astro preview",
+    "graph": "python3 scripts/build-graph.py",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/ibm-plex-serif": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.6",
+    "simple-icons": "^16.28.0",
+    "tailwindcss": "^4.3.3"
+  }
+}
