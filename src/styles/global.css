@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 /* Latin subsets only. Importing the full family pulls every writing system Plex covers. */
-@import '@fontsource/ibm-plex-mono/latin-400.css';
-@import '@fontsource/ibm-plex-mono/latin-600.css';
-@import '@fontsource/ibm-plex-serif/latin-400.css';
-@import '@fontsource/ibm-plex-sans/latin-400.css';
-@import '@fontsource/ibm-plex-sans/latin-500.css';
+@import '@fontsource/martian-mono/latin-500.css';
+@import '@fontsource/martian-mono/latin-600.css';
+@import '@fontsource/newsreader/latin-400.css';
+@import '@fontsource/instrument-sans/latin-400.css';
+@import '@fontsource/instrument-sans/latin-500.css';
 
 @theme {
   /* Dark and neutral. Hierarchy comes from brightness, so no hue can clash or date. */
@@ -16,9 +16,9 @@
   --color-line: #26262c;
   --color-accent: #ffffff;
 
-  --font-display: 'IBM Plex Mono', ui-monospace, monospace;
-  --font-body: 'IBM Plex Serif', Georgia, serif;
-  --font-ui: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-display: 'Martian Mono', ui-monospace, monospace;
+  --font-body: 'Newsreader', Georgia, serif;
+  --font-ui: 'Instrument Sans', system-ui, sans-serif;
 }
 
 @layer base {
