@@ -26,6 +26,11 @@
     scroll-behavior: smooth;
   }
 
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   body {
     background-color: var(--color-bg);
     color: var(--color-fg);
