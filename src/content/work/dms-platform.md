@@ -1,7 +1,7 @@
 ---
 kind: build
-title: Distribution Management Platform
-summary: The system distributors run on, from ordering and stock through to invoicing, deployed as its own instance per distributor.
+title: Distribution Management Systems
+summary: Work across the systems distributors run on: a live view of field activity, exports finance needed, and the containers they all run in.
 context: Akasha Wira International
 year: "2025"
 stack: [Odoo, Docker, PostgreSQL, REST]
@@ -9,23 +9,19 @@ visibility: internal
 weight: 85
 ---
 
-## The problem
+## The setup
 
-Distributors need their own system to sell, hold stock and invoice, but they are
-separate businesses. One shared instance would mix their data; a hand-built
-instance each would be impossible to maintain at over a hundred of them.
+Every distributor runs their own instance, isolated from the others. I work across
+that estate: building what the business needed on top of it, and keeping it running.
 
-## Approach
+## What I built
 
-One platform, deployed as an isolated instance per distributor.
-
-- **Per-distributor isolation**, so one distributor's data and configuration never touch another's.
-- **A common codebase** across every instance, so a fix ships everywhere rather than being reapplied by hand.
-- **Containerised deployment**, which is what makes running that many instances tractable.
-- **Sync with the central ERP** for the master data that has to stay consistent, such as products and pricelists.
+- **Realtime field visibility.** Visit activity streams out of every instance through middleware into one dashboard, with per-instance isolation preserved through the pipeline so a distributor's data stays theirs. Reporting never queries a production instance directly.
+- **A flat replica instead of live queries.** Visit lines are replicated into a flat table with daily aggregates, because a dashboard reading transactional tables gets slower every month it runs.
+- **Exports finance asked for.** Invoice line data out to CSV by month range or in full, from a menu next to the invoices themselves rather than a report someone has to request.
+- **Containerised, so the fleet is operable.** Which is what makes running this many instances possible at all, and is covered separately by the automation that maintains them.
 
 ## Outcome
 
-Over a hundred instances in production, operated as a fleet rather than
-individually. The automation that keeps them healthy is a separate piece of work,
-listed alongside this one.
+One live view across the network, and instances that can be operated as a fleet
+rather than individually.
