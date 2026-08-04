@@ -19,8 +19,8 @@ const work = (await getCollection('work')).sort(
 const tools = ['Obsidian', 'Claude Code', 'Markdown', 'Git'];
 
 const stack = [
-  { label: 'Write', items: ['Python', 'SQL', 'Odoo', 'Django'] },
-  { label: 'Store', items: ['PostgreSQL', 'Redis', 'PgBouncer', 'Patroni'] },
+  { label: 'Write', items: ['Python', 'SQL', 'Odoo', 'Django', 'Go'] },
+  { label: 'Store', items: ['PostgreSQL', 'MySQL', 'Redis', 'PgBouncer', 'Patroni'] },
   { label: 'Run', items: ['Docker', 'Docker Swarm', 'Ansible', 'Traefik', 'Linux'] },
   { label: 'Watch', items: ['Prometheus', 'Grafana', 'Loki', 'Alertmanager'] },
 ];
@@ -393,10 +393,12 @@ const roles = [
       align-items: start;
     }
 
-    /* Flush with the right edge of the cards below. Only once the columns exist,
-       otherwise the stacked mobile layout would push it off to one side. */
+    /* Flush with the right edge of the cards below, and sitting on the same
+       baseline as the last line of text. Only once the columns exist, otherwise
+       the stacked mobile layout would push it off to one side. */
     .cv {
       justify-self: end;
+      align-self: end;
     }
   }
 
