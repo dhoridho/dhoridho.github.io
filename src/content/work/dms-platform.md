@@ -1,7 +1,7 @@
 ---
 kind: build
 title: Distribution Management Systems
-summary: Work across the systems distributors run on: a live view of field activity, exports finance needed, and the containers they all run in.
+summary: "Work across the systems distributors run on: a live view of field activity, exports finance needed, and the containers they all run in."
 context: Akasha Wira International
 year: "2025"
 stack: [Odoo, Docker, PostgreSQL, REST]

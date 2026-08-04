@@ -1,7 +1,7 @@
 ---
 kind: build
 title: Dynamics AX to Odoo Migration
-summary: Rebuilding a business unit's operations on Odoo 16 after moving off Microsoft Dynamics AX, one workflow at a time.
+summary: "Rebuilding a business unit's operations on Odoo 16 after moving off Microsoft Dynamics AX, one workflow at a time."
 context: Akasha Wira International
 year: "2026"
 stack: [Odoo, Python, PostgreSQL, XML-RPC]

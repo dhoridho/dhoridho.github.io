@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: Integrity Watchdog
-summary: Checks out of band whether ERP records are actually correct, independently of whatever system wrote them, and repairs a known class of corruption.
+summary: "Checks out of band whether ERP records are actually correct, independently of whatever system wrote them, and repairs a known class of corruption."
 context: Akasha Wira International
 year: "2026"
 stack: [Go, PostgreSQL, SQLite]

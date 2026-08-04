@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: Attachment Caching
-summary: Field visit photos and inventory checks served from Redis instead of hitting the filestore on every read.
+summary: "Field visit photos and inventory checks served from Redis instead of hitting the filestore on every read."
 context: Akasha Wira International
 year: "2025"
 stack: [Odoo, Redis]

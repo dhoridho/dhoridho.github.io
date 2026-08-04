@@ -1,7 +1,7 @@
 ---
 kind: build
 title: Realtime Sales Dashboard
-summary: Field visits from every distributor instance stream through middleware into one live dashboard, with each instance kept isolated from the others.
+summary: "Field visits from every distributor instance stream through middleware into one live dashboard, with each instance kept isolated from the others."
 context: Akasha Wira International
 year: "2025"
 stack: [Odoo, Middleware, PostgreSQL]

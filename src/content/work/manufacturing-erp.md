@@ -1,7 +1,7 @@
 ---
 kind: build
 title: Manufacturing ERP
-summary: A full Odoo 16 system for a factory, covering manufacturing orders, waste tolerance, conversion cost, repacking, and cost structure reporting.
+summary: "A full Odoo 16 system for a factory, covering manufacturing orders, waste tolerance, conversion cost, repacking, and cost structure reporting."
 context: Akasha Wira International
 year: "2026"
 stack: [Odoo, Python, PostgreSQL]

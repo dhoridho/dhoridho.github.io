@@ -1,7 +1,7 @@
 ---
 kind: build
 title: Receivables Aging Notifications
-summary: Computes accounts-receivable aging per customer, sends each one their own WhatsApp reminder, and keeps an audit trail of what went out to whom.
+summary: "Computes accounts-receivable aging per customer, sends each one their own WhatsApp reminder, and keeps an audit trail of what went out to whom."
 context: Akasha Wira International
 year: "2025"
 stack: [Odoo, Python, PostgreSQL, WhatsApp API]

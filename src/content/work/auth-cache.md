@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: API Authentication Cache
-summary: An ORM-level Redis layer in front of the auth table, cutting the repeated lookups every external API call was making.
+summary: "An ORM-level Redis layer in front of the auth table, cutting the repeated lookups every external API call was making."
 context: Akasha Wira International
 year: "2025"
 stack: [Odoo, Redis, PostgreSQL]

@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: Fleet Automation
-summary: One command operates every instance across all production servers, replacing work that used to be done by hand on each server.
+summary: "One command operates every instance across all production servers, replacing work that used to be done by hand on each server."
 context: Akasha Wira International
 year: "2026"
 stack: [Ansible, Docker, PostgreSQL, Prometheus, Grafana]

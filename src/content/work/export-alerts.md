@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: Data Export Alerts
-summary: Every CSV and spreadsheet export raises a Discord notification with who exported what, so bulk data leaving the system is visible.
+summary: "Every CSV and spreadsheet export raises a Discord notification with who exported what, so bulk data leaving the system is visible."
 context: Akasha Wira International
 year: "2025"
 stack: [Odoo, Python, Discord]

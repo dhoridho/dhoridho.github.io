@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: Customer Staging Rework
-summary: Rebuilt the partner and staging models behind customer sync, adding guards against malformed external references and alerts when a record fails to reach the systems downstream.
+summary: "Rebuilt the partner and staging models behind customer sync, adding guards against malformed external references and alerts when a record fails to reach the systems downstream."
 context: Akasha Wira International
 year: "2026"
 stack: [Odoo, PostgreSQL, Python]

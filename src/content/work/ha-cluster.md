@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: High Availability Cluster
-summary: Three bare-metal servers where any single one can die without taking the ERP down. Automatic database failover, floating entry point, shared sessions.
+summary: "Three bare-metal servers where any single one can die without taking the ERP down. Automatic database failover, floating entry point, shared sessions."
 context: Akasha Wira International
 year: "2026"
 stack: [PostgreSQL, Patroni, etcd, Keepalived, Docker Swarm, Traefik, MinIO]

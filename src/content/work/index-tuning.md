@@ -1,7 +1,7 @@
 ---
 kind: improvement
 title: Query and Index Tuning
-summary: Cut database CPU by around 80% at peak by caching Odoo read paths in Redis and rebuilding the indexes behind the slowest queries.
+summary: "Cut database CPU by around 80% at peak by caching Odoo read paths in Redis and rebuilding the indexes behind the slowest queries."
 context: Akasha Wira International
 year: "2025"
 stack: [PostgreSQL, Redis, Odoo]
