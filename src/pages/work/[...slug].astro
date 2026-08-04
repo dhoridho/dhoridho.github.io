@@ -23,7 +23,7 @@ const github = iconFor('github');
     <header class="head">
       <p class="head__meta">
         {year}
-        <span aria-hidden="true">·</span>
+        {context && <span aria-hidden="true">·</span>}
         {context}
         {visibility === 'public' && <span class="head__open">public</span>}
       </p>
@@ -45,9 +45,11 @@ const github = iconFor('github');
       <p class="head__summary">{summary}</p>
     </header>
 
-    <ul class="stack">
-      {stack.map((tech) => <li><Badge label={tech} /></li>)}
-    </ul>
+    {stack.length > 0 && (
+      <ul class="stack">
+        {stack.map((tech) => <li><Badge label={tech} /></li>)}
+      </ul>
+    )}
 
     {chart && <Chart points={chart.points} caption={chart.caption} annotate={chart.annotate} />}
 

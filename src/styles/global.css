@@ -28,7 +28,10 @@
 
   html,
   body {
-    overflow-x: hidden;
+    /* clip, not hidden. overflow-x: hidden makes these scroll containers, and a
+       sticky child then resolves against that instead of the viewport, which
+       silently kills the sticky sidebar. */
+    overflow-x: clip;
   }
 
   body {

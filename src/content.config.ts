@@ -10,13 +10,16 @@ const work = defineCollection({
     kind: z.enum(['build', 'improvement']),
     title: z.string(),
     summary: z.string(),
-    context: z.enum(['Akasha Wira International', 'HashMicro', 'Personal']),
+    context: z.enum(['Akasha Wira International', 'HashMicro', 'Personal']).optional(),
     year: z.string(),
     stack: z.array(z.string()),
     visibility: z.enum(['public', 'internal']),
     repo: z.string().url().optional(),
     // Only builds carry these: the features that make up the system.
     parts: z.array(z.string()).optional(),
+    // Opens its own page instead of the dialog. For entries whose body is a long
+    // list rather than a case study.
+    linkOnly: z.boolean().default(false),
     weight: z.number().default(0),
     // Optional line chart, rendered above the body.
     chart: z

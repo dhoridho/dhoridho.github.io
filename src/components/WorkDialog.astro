@@ -27,7 +27,7 @@ const github = iconFor('github');
   <div class="dialog__body">
     <p class="meta">
       {year}
-      <span aria-hidden="true">·</span>
+      {context && <span aria-hidden="true">·</span>}
       {context}
       {visibility === 'public' && <span class="meta__open">public</span>}
     </p>
