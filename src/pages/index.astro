@@ -424,6 +424,14 @@ const roles = [
     border-radius: 0.375rem;
   }
 
+  /* Below the sidebar breakpoint the portrait moves up into the header, so this
+     copy stands down and the CV block is left as just its button. */
+  @media (max-width: 899px) {
+    .cv__portrait {
+      display: none;
+    }
+  }
+
   .opening__title {
     position: relative;
     margin: 0 0 1.25rem;

@@ -29,13 +29,28 @@ const links = [
 
 <aside class="sidebar">
   <div class="sidebar__inner">
-    <div>
-      <h1 class="sidebar__name">Ridho<br />Kurnia Putra</h1>
-      <p class="sidebar__role">
-        Software Engineer, Backend<br />
-        Akasha Wira International<br />
-        Jakarta, Indonesia
-      </p>
+    <div class="sidebar__head">
+      <div>
+        <h1 class="sidebar__name">Ridho<br />Kurnia Putra</h1>
+        <p class="sidebar__role">
+          Software Engineer, Backend<br />
+          Akasha Wira International<br />
+          Jakarta, Indonesia
+        </p>
+      </div>
+
+      {/* Shown on narrow screens only, where the sidebar becomes the header and
+          the CV column further down has nowhere sensible to sit. Its twin in the
+          Now section is hidden at the same breakpoint, so only one is ever in the
+          accessibility tree. */}
+      <img
+        class="sidebar__portrait"
+        src="/portrait.webp"
+        width="416"
+        height="416"
+        alt="Ridho Kurnia Putra"
+        decoding="async"
+      />
     </div>
 
     <nav class="sidebar__nav" aria-label="Sections">
@@ -163,10 +178,31 @@ const links = [
     }
   }
 
+  .sidebar__portrait {
+    display: none;
+  }
+
   @media (max-width: 899px) {
     .sidebar__inner {
       padding: 3rem 0 2rem;
       gap: 2rem;
+    }
+
+    .sidebar__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .sidebar__portrait {
+      display: block;
+      flex: none;
+      width: 5.5rem;
+      height: 5.5rem;
+      object-fit: cover;
+      border: 1px solid var(--color-line);
+      border-radius: 0.375rem;
     }
 
     .sidebar__nav {
