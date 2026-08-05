@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { entry, compact = false } = Astro.props;
-const { title, summary, year, stack, visibility, linkOnly } = entry.data;
+const { title, summary, year, stack, visibility } = entry.data;
 ---
 
 <article class="card" data-compact={compact ? '' : undefined}>
@@ -18,13 +18,7 @@ const { title, summary, year, stack, visibility, linkOnly } = entry.data;
   </div>
 
   <h3 class="card__title">
-    {
-      linkOnly ? (
-        <a href={`/work/${entry.id}/`}>{title}</a>
-      ) : (
-        <button type="button" data-open={`d-${entry.id}`}>{title}</button>
-      )
-    }
+    <button type="button" data-open={`d-${entry.id}`}>{title}</button>
   </h3>
 
   <p class="card__summary">{summary}</p>
@@ -97,7 +91,6 @@ const { title, summary, year, stack, visibility, linkOnly } = entry.data;
   }
 
   /* The trigger covers the whole card, so anywhere on it opens the panel. */
-  .card__title a::after,
   .card__title button::after {
     content: '';
     position: absolute;

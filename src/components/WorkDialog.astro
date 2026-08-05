@@ -54,9 +54,11 @@ const github = iconFor('github');
 
     <p class="summary">{summary}</p>
 
-    <ul class="stack">
-      {stack.map((tech) => <li><Badge label={tech} /></li>)}
-    </ul>
+    {stack.length > 0 && (
+      <ul class="stack">
+        {stack.map((tech) => <li><Badge label={tech} /></li>)}
+      </ul>
+    )}
 
     {chart && <Chart points={chart.points} caption={chart.caption} annotate={chart.annotate} />}
 

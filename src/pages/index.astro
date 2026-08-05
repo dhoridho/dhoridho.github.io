@@ -38,7 +38,7 @@ const roles = [
   },
   {
     company: 'HashMicro',
-    title: 'Freelance Developer, then Internship',
+    title: 'Internship, then Freelance Developer',
     period: '2024 to 2026',
     lines: [
       'Built customisations across sales, CRM, inventory, purchasing and accounting in Python and PostgreSQL.',
@@ -94,7 +94,7 @@ const roles = [
           {work.map((entry) => <WorkCard entry={entry} />)}
         </div>
 
-        {work.filter((entry) => !entry.data.linkOnly).map((entry) => <WorkDialog entry={entry} />)}
+        {work.map((entry) => <WorkDialog entry={entry} />)}
       </Section>
 
       <Section id="stack" title="Stack">

@@ -5,7 +5,6 @@ summary: "The work that does not have a card of its own, from a single field on 
 year: 2024 to 2026
 stack: []
 visibility: internal
-linkOnly: true
 weight: -100
 ---
 
